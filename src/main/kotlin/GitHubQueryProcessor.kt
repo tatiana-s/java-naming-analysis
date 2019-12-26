@@ -19,7 +19,6 @@ class GitHubQueryProcessor {
     fun queryGitHubAPI(query: String, type: String): JSONObject? {
         val token = getAccessToken() ?: return null
         val url = "$searchApiUrl$type?q=$query"
-        println(url)
         var response: JSONObject? = null
         try {
             response = get(url, headers = mapOf("Authorization" to "token $token")).jsonObject
