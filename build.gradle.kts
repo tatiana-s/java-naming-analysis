@@ -7,10 +7,14 @@ version = "1.0-SNAPSHOT"
 
 repositories {
     mavenCentral()
+    maven {
+        url = uri("https://jitpack.io")
+    }
 }
 
 dependencies {
     implementation(kotlin("stdlib-jdk8"))
+    implementation("com.github.jkcclemens:khttp:-SNAPSHOT")
 }
 
 tasks {
