@@ -8,7 +8,7 @@ One big obstacle in this project were GitHub's rate limits for its Search API (s
 Additionally it is not only the number of request that is rate-limited, requests with a lot of results also 
 have a high probability (and by that I mean it is basically guaranteed that they will) of timing out. 
 And not only that, the response won't feature all results in one batch, but instead group them by pages 
-with a maximum of a 30 results by default, meaning you need multiple queries to retrieve all pages.
+with a maximum of a 30 - 100 results, meaning you need multiple queries to retrieve all pages.
 
 All of these limits make it somewhat problematic and very hard to retrieve large 
 amounts of data that can be analysed (and you manage to trigger 

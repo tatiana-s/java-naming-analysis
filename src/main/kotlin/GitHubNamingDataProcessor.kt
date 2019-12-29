@@ -41,7 +41,10 @@ class GitHubNamingDataProcessor(private val queryProcessor: GitHubQueryProcessor
         for (size in fileSizes) {
             // Query searches for java files of the specified file size containing the word "class that are most recently indexed"
             val result =
-                queryProcessor.queryGitHubAPI("class+in:file+extension:java+size:$size&sort=indexed", "code")
+                queryProcessor.queryGitHubAPI(
+                    "class+in:file+extension:java+size:$size&sort=indexed&per_page=50",
+                    "code"
+                )
                     ?: continue
             resultList.add(result)
         }
