@@ -1,8 +1,6 @@
 import khttp.get
 import org.json.JSONObject
 import java.io.IOException
-import java.net.HttpURLConnection
-import java.net.URL
 
 class GitHubQueryProcessor {
 
@@ -17,7 +15,7 @@ class GitHubQueryProcessor {
      * @return http response as JSON object.
      */
     fun queryGitHubAPI(query: String, type: String): JSONObject? {
-        val token = getAccessToken() ?: return null
+        val token = getAccessToken(tokenFileName) ?: return null
         val url = "$searchApiUrl$type?q=$query"
         var response: JSONObject? = null
         try {
@@ -30,27 +28,17 @@ class GitHubQueryProcessor {
 
     /** Attempts to read GitHub OAuth access token from specified resource file.
      *
+     * @param fileName the file where the access token is contained
      * @return the token string.
      */
-    private fun getAccessToken(): String? {
+    fun getAccessToken(fileName: String): String? {
         var token: String? = null
         try {
-            token = javaClass.getResource(tokenFileName).readText()
+            token = javaClass.getResource(fileName).readText()
         } catch (e: IllegalStateException) {
-            println("Please create and place a personal access GitHub token in $tokenFileName.")
+            println("Please create and place a personal access GitHub token in $fileName.")
             e.printStackTrace()
         }
         return token
-    }
-
-    /** URL extension function for GET http requests.
-     *
-     * @return http response as string.
-     */
-    private fun URL.getText(): String {
-        return openConnection().run {
-            this as HttpURLConnection
-            inputStream.bufferedReader().readText()
-        }
     }
 }

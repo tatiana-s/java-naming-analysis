@@ -1,3 +1,5 @@
+/** Some demo code.
+ */
 fun main() {
     val queryProcessor = GitHubQueryProcessor()
     val dataProcessor = GitHubNamingDataProcessor(queryProcessor, "saved_data.txt")
@@ -36,7 +38,7 @@ fun getCount(name: String, data: NamingData): Int? {
  */
 fun getCountContained(text: String, data: NamingData): Int? {
     val items = data.data
-    var count = 0;
+    var count = 0
     for ((k, v) in items) {
         if (k.contains(text)) {
             count += v
