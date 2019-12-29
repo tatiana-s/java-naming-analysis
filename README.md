@@ -1,7 +1,9 @@
 # Java Naming Analysis
 Project attempting to determine the popularity of class names in Java-based projects on GitHub.
 
-## Data Collection Approach
+## Approach
+
+### Data Collection
 One big obstacle in this project were GitHub's rate limits for its Search API (see [documentation](https://developer.github.com/v3/search/)):
 > The Search API has a custom rate limit. For requests using Basic Authentication, OAuth, or client ID and secret, you can make up to 30 requests per minute. For unauthenticated requests, the rate limit allows you to make up to 10 requests per minute.
 
@@ -25,17 +27,19 @@ There are also several ways to deal with the limitations:
 - in terms of time-outs, divide your data into "chunks", e.g according to date created or file size.
 - generally you have to accept that you probably won't be able to get large amounts of data, and it is better to sample a small subset as an example.
 
-The approach I decided to go with is searching for code in Java files directly (containing the work "class" since you 
+In the end I decided to postpone looking for a better solution and decided to just to go with is searching for code in Java files directly (containing the work "class" since you 
 can't search code without a keyword), sampling according to file sizes (since annoyingly the creation date parameter 
-doesn't seem to work for code search), and sorting according to most recently indexed files, ignoring any timeouts.
+doesn't seem to work for code search), and sorting according to most recently indexed files, ignoring any timeouts and only getting the 50 results on the first page.
 
 The name of a class will be defined as the file name in this case (e.g "Test.java" counts as the class name "Test") since 
 analysis of code directly to find instances of e.g "class Test { ... }" would be more complex.
 
-## Setup
+This of course means that no meaningful insight can be gained using this particular data since a couple of hundred of files
+is nothing compared to millions. Nonetheless this project provides a framework that can be extended
+to use a better data collection approach in the future.
 
-TODO
+### Setup
 
-## Results
-
-TO DO
+In order for the program to send authenticated requests to the GitHub API, a personal access token has to be placed
+into the file `src/resources/access_token.txt`. Alternatively it can be run using the pre-existing 
+data saved in `saved_data.txt`.
