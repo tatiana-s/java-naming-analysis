@@ -1,13 +1,18 @@
 # Java Naming Analysis
-Project determining the popularity of class names in Java-based projects on GitHub.
+Project attempting to determine the popularity of class names in Java-based projects on GitHub.
 
 ## Data Collection Approach
 One big obstacle in this project were GitHub's rate limits for its Search API (see [documentation](https://developer.github.com/v3/search/)):
 > The Search API has a custom rate limit. For requests using Basic Authentication, OAuth, or client ID and secret, you can make up to 30 requests per minute. For unauthenticated requests, the rate limit allows you to make up to 10 requests per minute.
 
 Additionally it is not only the number of request that is rate-limited, requests with a lot of results also 
-have a high probability of timing out. Both of these limits make it somewhat problematic to retrieve large 
-amounts of data that can be analysed, seeing as GitHub has over 147M repositories, many of which will be in Java 
+have a high probability (and by that I mean it is basically guaranteed that they will) of timing out. 
+And not only that, the response won't feature all results in one batch, but instead group them by pages 
+with a maximum of a 30 results by default, meaning you need multiple queries to retrieve all pages.
+
+All of these limits make it somewhat problematic and very hard to retrieve large 
+amounts of data that can be analysed (and you manage to trigger 
+abuse detection mechanisms very easily when testing possible approaches to retrieve it), seeing as GitHub has over 147M repositories, many of which will be in Java 
 and contain multiple Java classes.
 
 There are several approaches that could be used to try and collect useful data, for example:

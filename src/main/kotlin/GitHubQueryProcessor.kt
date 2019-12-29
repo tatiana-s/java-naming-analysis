@@ -12,8 +12,8 @@ class GitHubQueryProcessor {
 
     /** Sends request to the GitHub search API and returns response.
      *
-     * @param query the search query
-     * @param type specifies what type of object is searched, e.g repositories or code
+     * @param query the search query.
+     * @param type specifies what type of object is searched, e.g repositories or code.
      * @return http response as JSON object.
      */
     fun queryGitHubAPI(query: String, type: String): JSONObject? {
@@ -37,6 +37,7 @@ class GitHubQueryProcessor {
         try {
             token = javaClass.getResource(tokenFileName).readText()
         } catch (e: IllegalStateException) {
+            println("Please create and place a personal access GitHub token in $tokenFileName.")
             e.printStackTrace()
         }
         return token
